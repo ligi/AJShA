@@ -1,6 +1,8 @@
 package ligi.org.ajsha;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,13 +12,19 @@ import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.apache.commons.io.IOUtils;
+import org.ligi.axt.AXT;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.StringWriter;
 
 import bsh.ClassIdentifier;
 import bsh.EvalError;
@@ -142,14 +150,43 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_save) {
-            PreferenceManager.getDefaultSharedPreferences(this).
-                    edit()
-                    .putString(CODE_KEY, codeEditText.getText().toString())
-                    .commit();
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_save:
+                PreferenceManager.getDefaultSharedPreferences(this).
+                        edit()
+                        .putString(CODE_KEY, codeEditText.getText().toString())
+                        .commit();
+                return true;
+            case R.id.action_load:
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                try {
+                    final String[] fileNames = getAssets().list("scripts");
+                    final ArrayAdapter<String> scriptsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fileNames);
+                    builder.setAdapter(scriptsAdapter, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+
+                                final InputStream inputStream = getAssets().open("scripts/" + fileNames[which]);
+
+                                StringWriter writer = new StringWriter();
+                                IOUtils.copy(inputStream, writer, "UTF-8");
+                                String theString = writer.toString();
+
+                                codeEditText.setText(theString);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    builder.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

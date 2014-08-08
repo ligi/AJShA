@@ -6,4 +6,8 @@
         android:title="save"
         android:showAsAction="ifRoom" />
 
+    <item android:id="@+id/action_load"
+        android:title="load"
+        android:showAsAction="ifRoom" />
+
 </menu>
