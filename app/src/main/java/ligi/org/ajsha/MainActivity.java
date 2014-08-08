@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -44,7 +45,10 @@ public class MainActivity extends Activity {
     TextView toStringTV;
 
     @InjectView(R.id.codeInput)
-    EditText codeInput;
+    EditText codeEditText;
+
+    @InjectView(R.id.linearLayout)
+    LinearLayout linearLayout;
 
     private String streamedOutString;
 
@@ -54,7 +58,7 @@ public class MainActivity extends Activity {
             streamedOutString = "";
             streamedOutTV.setText(streamedOutString);
 
-            final Object evaledObject = interpreter.eval("import android.content.*;import android.widget.*;import android.os.*;"+codeInput.getText().toString());
+            final Object evaledObject = interpreter.eval("import android.content.*;import android.widget.*;import android.os.*;" + codeEditText.getText().toString());
 
             exceptionOut.setText("");
             if (evaledObject == null) {
@@ -64,9 +68,9 @@ public class MainActivity extends Activity {
 
                 final Class evalClass;
                 if (evaledObject instanceof ClassIdentifier) {
-                    evalClass=((ClassIdentifier) evaledObject).getTargetClass();
+                    evalClass = ((ClassIdentifier) evaledObject).getTargetClass();
                 } else {
-                    evalClass=evaledObject.getClass();
+                    evalClass = evaledObject.getClass();
                 }
 
                 final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.toString() + "</a>");
@@ -91,10 +95,17 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
+
         interpreter = new Interpreter();
 
         try {
-            interpreter.set("ctx",this);
+            interpreter.set("ctx", this);
+            interpreter.set("codeEditText", codeEditText);
+            interpreter.set("container", linearLayout);
+
         } catch (EvalError evalError) {
             evalError.printStackTrace();
         }
@@ -110,14 +121,11 @@ public class MainActivity extends Activity {
         interpreter.setOut(new PrintStream(streamedOutStream));
         interpreter.setErr(new PrintStream(streamedOutStream));
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
-
         final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String showedCode = sharedPrefs.getString(CODE_KEY, getString(R.string.hello_world_code));
-        codeInput.setText(showedCode);
+        codeEditText.setText(showedCode);
 
-        codeInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        codeEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 return false;
@@ -138,7 +146,7 @@ public class MainActivity extends Activity {
         if (id == R.id.action_save) {
             PreferenceManager.getDefaultSharedPreferences(this).
                     edit()
-                    .putString(CODE_KEY, codeInput.getText().toString())
+                    .putString(CODE_KEY, codeEditText.getText().toString())
                     .commit();
             return true;
         }
