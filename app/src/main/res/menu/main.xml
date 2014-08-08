@@ -1,13 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ajsha="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity" >
 
     <item android:id="@+id/action_save"
         android:title="save"
-        android:showAsAction="ifRoom" />
+        ajsha:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_load"
         android:title="load"
-        android:showAsAction="ifRoom" />
+        ajsha:showAsAction="ifRoom" />
 
 </menu>
