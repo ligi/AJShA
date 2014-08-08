@@ -1,7 +1,6 @@
 package ligi.org.ajsha;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,21 +47,23 @@ public class MainActivity extends Activity {
     @OnClick(R.id.execCodeButton)
     void execCodeonClick() {
         try {
-            streamedOutString ="";
+            streamedOutString = "";
             streamedOutTV.setText(streamedOutString);
 
             final Object eval = interpreter.eval(codeInput.getText().toString());
 
             exceptionOut.setText("");
-            if (eval==null) {
+            if (eval == null) {
                 objOut.setText("VOID");
                 toStringTV.setText("");
             } else {
-                objOut.setText( eval.getClass().toString());
-                toStringTV.setText( eval.toString());
+
+                objOut.setText(eval.getClass().toString());
+
+                toStringTV.setText(eval.toString());
             }
         } catch (EvalError evalError) {
-            exceptionOut.setText(""+evalError);
+            exceptionOut.setText("" + evalError);
             evalError.printStackTrace();
         }
 
@@ -75,10 +76,10 @@ public class MainActivity extends Activity {
 
         interpreter = new Interpreter();
 
-        OutputStream streamedOutStream=new OutputStream() {
+        OutputStream streamedOutStream = new OutputStream() {
             @Override
             public void write(int oneByte) throws IOException {
-                streamedOutString +=(char) oneByte;
+                streamedOutString += (char) oneByte;
                 streamedOutTV.setText(MainActivity.this.streamedOutString);
             }
         };
@@ -114,8 +115,8 @@ public class MainActivity extends Activity {
         if (id == R.id.action_save) {
             PreferenceManager.getDefaultSharedPreferences(this).
                     edit()
-            .putString(CODE_KEY,codeInput.getText().toString())
-            .commit();
+                    .putString(CODE_KEY, codeInput.getText().toString())
+                    .commit();
             return true;
         }
         return super.onOptionsItemSelected(item);
