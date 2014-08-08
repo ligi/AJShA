@@ -78,6 +78,15 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         Spoon.screenshot(activity, "checkbox");
     }
 
+    public void testDialogWorks() {
+
+        final MainActivity activity = loadEvalCode("dialog");
+
+        onView(withText(containsString("test"))).check(matches(isDisplayed()));
+
+        Spoon.screenshot(activity, "dialog");
+    }
+
 
     public void testThatLoadCalcWorks() {
 
