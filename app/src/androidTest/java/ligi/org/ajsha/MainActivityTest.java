@@ -13,6 +13,7 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.endsWith;
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
     public MainActivityTest() {
@@ -27,17 +28,34 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testThatOnePlusOneIsTwo() {
 
-        final MainActivity activity = getActivity();
-
-        onView(withId(R.id.codeInput)).perform(new ClearTextAction());
-        onView(withId(R.id.codeInput)).perform(typeText("1+1"));
-
-        onView(withId(R.id.execCodeButton)).perform(click());
+        final MainActivity activity = uiEvalCode("1+1");
 
         onView(withId(R.id.obj_tostring)).check(matches(withText("2")));
 
         Spoon.screenshot(activity, "one_plus_one");
     }
 
+    public void testThatAndroidIsResolved() {
+
+        final MainActivity activity = uiEvalCode("Build");
+
+        onView(withId(R.id.obj_tostring)).check(matches(withText(endsWith("android.os.Build"))));
+        onView(withId(R.id.obj_classinfo)).check(matches(withText(endsWith("android.os.Build"))));
+
+        Spoon.screenshot(activity, "eval_build");
+    }
+
+
+    private MainActivity uiEvalCode(String code) {
+
+        final MainActivity activity = getActivity();
+
+        onView(withId(R.id.codeInput)).perform(new ClearTextAction());
+        onView(withId(R.id.codeInput)).perform(typeText(code));
+
+        onView(withId(R.id.execCodeButton)).perform(click());
+
+        return activity;
+    }
 
 }

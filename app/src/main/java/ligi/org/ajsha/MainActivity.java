@@ -41,8 +41,8 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.exception_out)
     TextView exceptionOut;
 
-    @InjectView(R.id.obj_out)
-    TextView objOut;
+    @InjectView(R.id.obj_classinfo)
+    TextView objClassInfo;
 
 
     @InjectView(R.id.out_stream)
@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
 
             exceptionOut.setText("");
             if (evaledObject == null) {
-                objOut.setText("VOID");
+                objClassInfo.setText("VOID");
                 toStringTV.setText("");
             } else {
 
@@ -81,8 +81,8 @@ public class MainActivity extends ActionBarActivity {
                 }
 
                 final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.toString() + "</a>");
-                objOut.setText(html);
-                objOut.setMovementMethod(LinkMovementMethod.getInstance());
+                objClassInfo.setText(html);
+                objClassInfo.setMovementMethod(LinkMovementMethod.getInstance());
 
                 toStringTV.setText(evaledObject.toString());
             }
