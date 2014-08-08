@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         applicationId "ligi.org.ajsha"
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 20
         versionCode 1
         versionName "0.1"
