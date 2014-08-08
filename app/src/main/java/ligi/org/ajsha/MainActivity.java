@@ -54,26 +54,26 @@ public class MainActivity extends Activity {
             streamedOutString = "";
             streamedOutTV.setText(streamedOutString);
 
-            final Object eval = interpreter.eval(codeInput.getText().toString());
+            final Object evaledObject = interpreter.eval("import android.content.*;import android.widget.*;import android.os.*;"+codeInput.getText().toString());
 
             exceptionOut.setText("");
-            if (eval == null) {
+            if (evaledObject == null) {
                 objOut.setText("VOID");
                 toStringTV.setText("");
             } else {
 
                 final Class evalClass;
-                if (eval instanceof ClassIdentifier) {
-                    evalClass=((ClassIdentifier) eval).getTargetClass();
+                if (evaledObject instanceof ClassIdentifier) {
+                    evalClass=((ClassIdentifier) evaledObject).getTargetClass();
                 } else {
-                    evalClass=eval.getClass();
+                    evalClass=evaledObject.getClass();
                 }
 
                 final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.toString() + "</a>");
                 objOut.setText(html);
                 objOut.setMovementMethod(LinkMovementMethod.getInstance());
 
-                toStringTV.setText(eval.toString());
+                toStringTV.setText(evaledObject.toString());
             }
         } catch (EvalError evalError) {
             exceptionOut.setText("" + evalError);
