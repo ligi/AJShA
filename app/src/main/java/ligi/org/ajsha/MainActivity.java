@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
             streamedOutString = "";
             streamedOutTV.setText(streamedOutString);
 
-            final Object evaledObject = interpreter.eval("import android.content.*;import android.widget.*;import android.os.*;" + codeEditText.getText().toString());
+            final Object evaledObject = interpreter.eval("import android.content.*;import android.widget.*;import android.os.*;import org.ligi.axt.*;" + codeEditText.getText().toString());
 
             exceptionOut.setText("");
             if (evaledObject == null) {

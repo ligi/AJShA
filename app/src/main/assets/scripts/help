@@ -1,0 +1,1 @@
+AXT.at(ctx).startCommonIntent().openUrl("https://github.com/ligi/AJShA");
