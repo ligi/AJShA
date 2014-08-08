@@ -65,7 +65,7 @@ public class MainActivity extends ActionBarActivity {
             streamedOutString = "";
             streamedOutTV.setText(streamedOutString);
 
-            final Object evaledObject = interpreter.eval("import android.content.*;import android.widget.*;import android.os.*;import org.ligi.axt.*;" + codeEditText.getText().toString());
+            final Object evaledObject = interpreter.eval(getImportString() + codeEditText.getText().toString());
 
             exceptionOut.setText("");
             if (evaledObject == null) {
@@ -90,6 +90,14 @@ public class MainActivity extends ActionBarActivity {
             exceptionOut.setText("" + evalError);
             evalError.printStackTrace();
         }
+    }
+
+    private String getImportString() {
+        return "import android.content.*;" +
+                "import android.widget.*;" +
+                "import android.os.*;" +
+                "import android.app.*;" +
+                "import org.ligi.axt.*;";
     }
 
     private String getLinkForClass(Class inClass) {
