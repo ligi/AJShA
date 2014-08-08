@@ -12,6 +12,7 @@ import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewA
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.hasSibling;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withChild;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
@@ -30,7 +31,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testOnePlusOneIsTwo() {
 
-        final MainActivity activity = uiEvalCode("1+1");
+        final MainActivity activity = uEvalCode("1+1");
 
         onView(withId(R.id.obj_tostring)).check(matches(withText("2")));
 
@@ -39,7 +40,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testAndroidIsResolved() {
 
-        final MainActivity activity = uiEvalCode("Build");
+        final MainActivity activity = uEvalCode("Build");
 
         Spoon.screenshot(activity, "eval_build");
 
@@ -51,7 +52,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testExceptionsAreCaredOf() {
 
-        final MainActivity activity = uiEvalCode("1/0");
+        final MainActivity activity = uEvalCode("1/0");
 
         onView(withId(R.id.exception_out)).check(matches(withText(containsString("Exception"))));
 
@@ -61,7 +62,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testContextIsThere() {
 
-        final MainActivity activity = uiEvalCode("ctx");
+        final MainActivity activity = uEvalCode("ctx");
 
         onView(withId(R.id.obj_classinfo)).check(matches(withText(endsWith("Activity"))));
 
@@ -70,20 +71,25 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testContainerWorks() {
 
-        final MainActivity activity = getActivity();
+        final MainActivity activity = loadEvalCode("views");
 
-        onView(withId(R.id.action_load)).perform(click());
-        onView(withText("views")).perform(click());
-
-        onView(withId(R.id.execCodeButton)).perform(click());
-
-        onView(withId(R.id.linearLayout)).check(matches(hasSibling(withText(containsString("check")))));
+        onView(withId(R.id.linearLayout)).check(matches(withChild(withText(containsString("check")))));
 
         Spoon.screenshot(activity, "checkbox");
     }
 
 
     public void testThatLoadCalcWorks() {
+
+        final MainActivity activity = loadEvalCode("calculation");
+
+        onView(withId(R.id.obj_tostring)).check(matches(withText(endsWith("202"))));
+
+        Spoon.screenshot(activity, "load_calc");
+    }
+
+    /** steps **/
+    private MainActivity loadEvalCode(String code) {
         final MainActivity activity = getActivity();
 
         onView(withId(R.id.action_load)).perform(click());
@@ -91,18 +97,14 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         onView(withText("calculation")).check(matches(isDisplayed())); // kind of a wait
         Spoon.screenshot(activity, "load");
 
-        onView(withText("calculation")).perform(click());
-
+        onView(withText(code)).perform(click());
 
         onView(withId(R.id.execCodeButton)).perform(click());
 
-        onView(withId(R.id.obj_tostring)).check(matches(withText(endsWith("202"))));
-
-        Spoon.screenshot(activity, "load_calc");
+        return activity;
     }
 
-
-    private MainActivity uiEvalCode(String code) {
+    private MainActivity uEvalCode(String code) {
 
         final MainActivity activity = getActivity();
 
