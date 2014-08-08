@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+import bsh.ClassIdentifier;
 import bsh.EvalError;
 import bsh.Interpreter;
 import butterknife.ButterKnife;
@@ -58,7 +62,16 @@ public class MainActivity extends Activity {
                 toStringTV.setText("");
             } else {
 
-                objOut.setText(eval.getClass().toString());
+                final Class evalClass;
+                if (eval instanceof ClassIdentifier) {
+                    evalClass=((ClassIdentifier) eval).getTargetClass();
+                } else {
+                    evalClass=eval.getClass();
+                }
+
+                final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.toString() + "</a>");
+                objOut.setText(html);
+                objOut.setMovementMethod(LinkMovementMethod.getInstance());
 
                 toStringTV.setText(eval.toString());
             }
@@ -66,8 +79,12 @@ public class MainActivity extends Activity {
             exceptionOut.setText("" + evalError);
             evalError.printStackTrace();
         }
+    }
 
-
+    private String getLinkForClass(Class inClass) {
+        String link = inClass.getCanonicalName();
+        link = link.replace(".", "/");
+        return "http://developer.android.com/reference/" + link + ".html";
     }
 
     @Override
