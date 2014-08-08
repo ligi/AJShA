@@ -44,10 +44,6 @@ android {
 
     }
 
-    lintOptions {
-        abortOnError false
-    }
-
     // hack for instrumentation testing :-(
     packagingOptions {
         exclude 'LICENSE.txt'
