@@ -1,4 +1,4 @@
-package ligi.org.ajsha;
+package org.ligi.ajsha;
 
 import android.test.ActivityInstrumentationTestCase2;
 
@@ -6,7 +6,6 @@ import com.google.android.apps.common.testing.ui.espresso.action.ClearTextAction
 import com.squareup.spoon.Spoon;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.Espresso.openContextualActionModeOverflowMenu;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
@@ -17,7 +16,6 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.endsWith;
-import static org.mockito.Matchers.contains;
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
     public MainActivityTest() {
@@ -44,7 +42,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         final MainActivity activity = uiEvalCode("Build");
 
         Spoon.screenshot(activity, "eval_build");
-        
+
         onView(withId(R.id.obj_tostring)).check(matches(withText(endsWith("android.os.Build"))));
         onView(withId(R.id.obj_classinfo)).check(matches(withText(endsWith("android.os.Build"))));
 

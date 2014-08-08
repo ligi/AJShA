@@ -1,4 +1,4 @@
-package ligi.org.ajsha;
+package org.ligi.ajsha;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
