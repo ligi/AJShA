@@ -93,6 +93,12 @@ public class MainActivity extends Activity {
 
         interpreter = new Interpreter();
 
+        try {
+            interpreter.set("ctx",this);
+        } catch (EvalError evalError) {
+            evalError.printStackTrace();
+        }
+
         OutputStream streamedOutStream = new OutputStream() {
             @Override
             public void write(int oneByte) throws IOException {
