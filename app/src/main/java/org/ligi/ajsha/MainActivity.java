@@ -12,7 +12,9 @@ import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,6 +57,9 @@ public class MainActivity extends ActionBarActivity {
 
     @InjectView(R.id.codeInput)
     EditText codeEditText;
+
+    @InjectView(R.id.buttonContainer)
+    LinearLayout buttonContainer;
 
     @InjectView(R.id.linearLayout)
     LinearLayout linearLayout;
@@ -124,6 +129,9 @@ public class MainActivity extends ActionBarActivity {
             interpreter.set("ctx", this);
             interpreter.set("codeEditText", codeEditText);
             interpreter.set("container", linearLayout);
+            interpreter.set("buttonContainer", buttonContainer);
+
+
 
         } catch (EvalError evalError) {
             evalError.printStackTrace();
