@@ -44,6 +44,8 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.obj_classinfo)
     TextView objClassInfo;
 
+    @InjectView(R.id.time)
+    TextView timeTV;
 
     @InjectView(R.id.out_stream)
     TextView streamedOutTV;
@@ -65,8 +67,10 @@ public class MainActivity extends ActionBarActivity {
             streamedOutString = "";
             streamedOutTV.setText(streamedOutString);
 
+            final long startTime=System.currentTimeMillis();
             final Object evaledObject = interpreter.eval(getImportString() + codeEditText.getText().toString());
-
+            final long execTime=System.currentTimeMillis()-startTime;
+            timeTV.setText(""+execTime+"ms");
             exceptionOut.setText("");
             if (evaledObject == null) {
                 objClassInfo.setText("VOID");

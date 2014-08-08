@@ -33,6 +33,11 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:id="@+id/exception_out"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
