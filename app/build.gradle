@@ -18,6 +18,9 @@ apply plugin: 'spoon'
 
 repositories {
     jcenter()
+    maven {
+        url project.hasProperty('ligisMavenUrl') ? ligisMavenUrl : "https://raw.github.com/ligi/ligis-mvn-repo/master";
+    }
 }
 
 android {
@@ -56,6 +59,9 @@ dependencies {
     compile 'com.google.guava:guava:17.0'
     compile 'org.beanshell:bsh:2.0b4'
     compile 'com.jakewharton:butterknife:5.1.1'
+    compile 'org.ligi:AXT:0.28'
+    compile 'org.apache.commons:commons-io:1.3.2'
+
 
     androidTestCompile 'com.squareup.spoon:spoon-client:1.1.1'
     androidTestCompile 'com.squareup:fest-android:1.0.7'
