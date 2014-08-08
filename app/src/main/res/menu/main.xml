@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity" >
+
+    <item android:id="@+id/action_save"
+        android:title="save"
+        android:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_load"
+        android:title="load"
+        android:showAsAction="ifRoom" />
+
+</menu>
