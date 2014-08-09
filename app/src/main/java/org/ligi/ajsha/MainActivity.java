@@ -114,13 +114,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_main);
+        ButterKnife.inject(this);
+
         if (!new File(App.getSettings().getScriptDir()+"/examples", "help.aj").exists()) {
             new CopyAssetsAsyncTask(this).execute();
             return; // we come back later with an new intent
         }
-
-        setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
 
         initInterpreter();
 

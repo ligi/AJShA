@@ -33,8 +33,6 @@ public class ExecutePluginsAsyncTask extends BaseAsyncTask {
     protected void onProgressUpdate(String... values) {
         super.onProgressUpdate(values);
 
-        progressDialog.setMessage(values[0]);
-
         try {
             final String codeString = AXT.at(new File(values[0])).readToString();
             interpreter.eval(codeString);

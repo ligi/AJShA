@@ -34,6 +34,12 @@ public abstract class BaseAsyncTask extends AsyncTask<Void, String, Void> {
     }
 
     @Override
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+        progressDialog.setMessage(values[0]);
+    }
+
+    @Override
     protected void onPostExecute(Void aVoid) {
         if (!context.isFinishing() && progressDialog.isShowing()) {
             progressDialog.dismiss();
