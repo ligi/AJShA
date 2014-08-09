@@ -117,7 +117,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (!new File(App.getScriptDir()+"/examples", "help.aj").exists()) {
             new CopyAssetsAsyncTask(this).execute();
-            return;
+            return; // we come back later with an new intent
         }
 
         setContentView(R.layout.activity_main);
