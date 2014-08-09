@@ -39,7 +39,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testAndroidIsResolved() {
 
-        final MainActivity activity = uEvalCode("Build");
+        final MainActivity activity = uEvalCode("import android.os.*;Build");
 
         Spoon.screenshot(activity, "eval_build");
 
@@ -103,7 +103,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         final MainActivity activity = getActivity();
 
         onView(withId(R.id.action_load)).perform(click());
-        onView(withText("examples")).perform(click());
+        onView(withText("examples/")).perform(click());
         onView(withText("calculation")).check(matches(isDisplayed())); // kind of a wait
         Spoon.screenshot(activity, "load");
 
