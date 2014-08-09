@@ -1,9 +1,12 @@
-package org.ligi.ajsha;
+package org.ligi.ajsha.tasks;
 
+import android.app.Activity;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.ligi.ajsha.App;
+import org.ligi.ajsha.MainActivity;
 import org.ligi.axt.AXT;
 
 import java.io.File;
@@ -12,16 +15,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-class CopyAssetsAsyncTask extends AsyncTask<Void, Void, Void> {
+public class CopyAssetsAsyncTask extends BaseAsyncTask {
 
-    private MainActivity mainActivity;
-
-    public CopyAssetsAsyncTask(MainActivity mainActivity) {
-        this.mainActivity = mainActivity;
+    public CopyAssetsAsyncTask(Activity context) {
+        super(context);
     }
 
     private void copyAssets(String path) {
-        final AssetManager assetManager = mainActivity.getAssets();
+        final AssetManager assetManager = context.getAssets();
         try {
             final File toPath = new File(App.getScriptDir() +"/"+ path);
             if (!toPath.exists()) {
@@ -62,7 +63,7 @@ class CopyAssetsAsyncTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        AXT.at(mainActivity).startCommonIntent().activityFromClass(MainActivity.class);
+        AXT.at(context).startCommonIntent().activityFromClass(MainActivity.class);
         super.onPostExecute(aVoid);
     }
 }

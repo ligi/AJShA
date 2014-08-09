@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
+import org.ligi.ajsha.tasks.CopyAssetsAsyncTask;
+import org.ligi.ajsha.tasks.ExecutePluginsAsyncTask;
 import org.ligi.axt.AXT;
 
 import java.io.File;
@@ -125,6 +127,7 @@ public class MainActivity extends ActionBarActivity {
 
         initInterpreter();
 
+        new ExecutePluginsAsyncTask(this,interpreter).execute();
         final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final String showedCode = sharedPrefs.getString(CODE_KEY, getString(R.string.hello_world_code));
         codeEditText.setText(showedCode);
