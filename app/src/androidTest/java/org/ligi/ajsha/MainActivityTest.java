@@ -1,5 +1,7 @@
 package org.ligi.ajsha;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ClearTextAction;

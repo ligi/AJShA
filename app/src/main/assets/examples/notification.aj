@@ -1,4 +1,6 @@
-import 	android.support.v4.app.*;
+import android.content.*;
+import android.support.v4.app.*;
+
 NotificationCompat.Builder mBuilder =
     new NotificationCompat.Builder(ctx)
     .setSmallIcon(org.ligi.ajsha.R.drawable.ic_launcher)

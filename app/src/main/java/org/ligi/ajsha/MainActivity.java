@@ -76,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
             streamedOutTV.setText(streamedOutString);
 
             final long startTime = System.currentTimeMillis();
-            final Object evaledObject = interpreter.eval(getImportString() + codeEditText.getText().toString());
+            final Object evaledObject = interpreter.eval(codeEditText.getText().toString());
             final long execTime = System.currentTimeMillis() - startTime;
             timeTV.setText("" + execTime + "ms");
             exceptionOut.setText("");
@@ -104,13 +104,6 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    private String getImportString() {
-        return "import android.content.*;" +
-                "import android.widget.*;" +
-                "import android.os.*;" +
-                "import android.app.*;" +
-                "import org.ligi.axt.*;";
-    }
 
     private String getLinkForClass(Class inClass) {
         String link = inClass.getCanonicalName();

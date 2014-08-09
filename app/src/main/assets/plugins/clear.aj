@@ -1,4 +1,5 @@
 import android.view.*;
+import android.widget.*;
 
 Button clearBtn = new Button(ctx);
 clearBtn.setText("clear");

@@ -1,4 +1,5 @@
 import android.view.*;
+import android.widget.*;
 
 Button shareBtn = new Button(ctx);
 shareBtn.setText("share");
