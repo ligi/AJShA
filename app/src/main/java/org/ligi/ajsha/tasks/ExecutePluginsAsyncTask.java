@@ -13,7 +13,7 @@ import bsh.Interpreter;
 
 public class ExecutePluginsAsyncTask extends BaseAsyncTask {
 
-final Interpreter interpreter;
+    final Interpreter interpreter;
 
     public ExecutePluginsAsyncTask(Activity context, Interpreter interpreter) {
         super(context);
@@ -22,8 +22,8 @@ final Interpreter interpreter;
 
     @Override
     protected Void doInBackground(Void... params) {
-        final File[] plugins = new File(App.getScriptDir(), "plugins").listFiles();
-        for (File plugin:plugins) {
+        final File[] plugins = new File(App.getSettings().getScriptDir(), "plugins").listFiles();
+        for (File plugin : plugins) {
             publishProgress(plugin.getAbsolutePath());
         }
         return null;
@@ -38,7 +38,7 @@ final Interpreter interpreter;
         try {
             final String codeString = AXT.at(new File(values[0])).readToString();
             interpreter.eval(codeString);
-        } catch (IOException e ) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (EvalError evalError) {
             evalError.printStackTrace();

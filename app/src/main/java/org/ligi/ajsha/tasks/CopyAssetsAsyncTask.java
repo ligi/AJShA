@@ -24,7 +24,7 @@ public class CopyAssetsAsyncTask extends BaseAsyncTask {
     private void copyAssets(String path) {
         final AssetManager assetManager = context.getAssets();
         try {
-            final File toPath = new File(App.getScriptDir() +"/"+ path);
+            final File toPath = new File(App.getSettings().getScriptDir() +"/"+ path);
             if (!toPath.exists()) {
                 toPath.mkdirs();
             }
@@ -56,7 +56,7 @@ public class CopyAssetsAsyncTask extends BaseAsyncTask {
 
     @Override
     protected Void doInBackground(Void... params) {
-        App.getScriptDir().mkdirs();
+        App.getSettings().getScriptDir().mkdirs();
         copyAssets("examples");
         copyAssets("plugins");
         return null;

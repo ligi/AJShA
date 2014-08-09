@@ -42,7 +42,6 @@ import butterknife.OnClick;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final String CODE_KEY = "code";
     private Interpreter interpreter;
 
     @InjectView(R.id.exception_out)
@@ -117,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!new File(App.getScriptDir()+"/examples", "help.aj").exists()) {
+        if (!new File(App.getSettings().getScriptDir()+"/examples", "help.aj").exists()) {
             new CopyAssetsAsyncTask(this).execute();
             return; // we come back later with an new intent
         }
@@ -128,9 +127,7 @@ public class MainActivity extends ActionBarActivity {
         initInterpreter();
 
         new ExecutePluginsAsyncTask(this,interpreter).execute();
-        final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final String showedCode = sharedPrefs.getString(CODE_KEY, getString(R.string.hello_world_code));
-        codeEditText.setText(showedCode);
+
 
     }
 
@@ -166,16 +163,41 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        codeEditText.setText(App.getSettings().getRecentCode());
+    }
+
+    @Override
+    protected void onPause() {
+        App.getSettings().setRecentCode(codeEditText.getText().toString());
+        super.onPause();
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                PreferenceManager.getDefaultSharedPreferences(this).
-                        edit()
-                        .putString(CODE_KEY, codeEditText.getText().toString())
-                        .commit();
+                final EditText fileNameET=new EditText(this);
+                fileNameET.setText(App.getSettings().getRecentFileName());
+                new AlertDialog.Builder(this)
+                        .setView(fileNameET)
+                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final File outFile = new File(App.getSettings().getScriptDir(), fileNameET.getText().toString());
+                                AXT.at(outFile).writeString(codeEditText.getText().toString() + ".aj");
+                                App.getSettings().setRecentFileName(fileNameET.getText().toString());
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel,null)
+                        .show();
+
                 return true;
             case R.id.action_load:
-                showLoadDialogForPath(App.getScriptDir());
+                showLoadDialogForPath(App.getSettings().getScriptDir());
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -212,7 +234,7 @@ public class MainActivity extends ActionBarActivity {
                             showLoadDialogForPath(file);
                         } else {
                             final InputStream inputStream = new FileInputStream(file);
-
+                            App.getSettings().setRecentFileName(file.toString().replace(App.getSettings().getScriptDir().toString()+"/",""));
                             StringWriter writer = new StringWriter();
                             IOUtils.copy(inputStream, writer, "UTF-8");
                             String theString = writer.toString();
