@@ -1,5 +1,6 @@
 import android.content.*;
 import android.support.v4.app.*;
+import android.app.*;
 
 NotificationCompat.Builder mBuilder =
     new NotificationCompat.Builder(ctx)

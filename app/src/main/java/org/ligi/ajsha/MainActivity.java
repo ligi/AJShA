@@ -2,14 +2,12 @@ package org.ligi.ajsha;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -126,9 +124,9 @@ public class MainActivity extends ActionBarActivity {
 
         initInterpreter();
 
-        new ExecutePluginsAsyncTask(this,interpreter).execute();
+        new ExecutePluginsAsyncTask(this, interpreter).execute();
 
-
+        codeEditText.setText(App.getSettings().getRecentCode());
     }
 
     private void initInterpreter() {
@@ -163,13 +161,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
-
-        codeEditText.setText(App.getSettings().getRecentCode());
-    }
-
-    @Override
     protected void onPause() {
         App.getSettings().setRecentCode(codeEditText.getText().toString());
         super.onPause();
@@ -180,11 +171,11 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                final EditText fileNameET=new EditText(this);
+                final EditText fileNameET = new EditText(this);
                 fileNameET.setText(App.getSettings().getRecentFileName());
                 new AlertDialog.Builder(this)
                         .setView(fileNameET)
-                        .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 final File outFile = new File(App.getSettings().getScriptDir(), fileNameET.getText().toString());
@@ -192,7 +183,7 @@ public class MainActivity extends ActionBarActivity {
                                 App.getSettings().setRecentFileName(fileNameET.getText().toString());
                             }
                         })
-                        .setNegativeButton(android.R.string.cancel,null)
+                        .setNegativeButton(android.R.string.cancel, null)
                         .show();
 
                 return true;
@@ -215,10 +206,10 @@ public class MainActivity extends ActionBarActivity {
                 public View getView(int position, View convertView, ViewGroup parent) {
                     final TextView view = (TextView) super.getView(position, convertView, parent);
                     final File item = getItem(position);
-                    if(item.isDirectory()) {
-                        view.setText(AXT.at(item.toString().split("/")).last()+"/");
+                    if (item.isDirectory()) {
+                        view.setText(AXT.at(item.toString().split("/")).last() + "/");
                     } else {
-                        view.setText(item.getName().replace(".aj",""));
+                        view.setText(item.getName().replace(".aj", ""));
                     }
                     return view;
                 }
@@ -234,7 +225,7 @@ public class MainActivity extends ActionBarActivity {
                             showLoadDialogForPath(file);
                         } else {
                             final InputStream inputStream = new FileInputStream(file);
-                            App.getSettings().setRecentFileName(file.toString().replace(App.getSettings().getScriptDir().toString()+"/",""));
+                            App.getSettings().setRecentFileName(file.toString().replace(App.getSettings().getScriptDir().toString() + "/", ""));
                             StringWriter writer = new StringWriter();
                             IOUtils.copy(inputStream, writer, "UTF-8");
                             String theString = writer.toString();
