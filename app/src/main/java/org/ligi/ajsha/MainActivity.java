@@ -12,12 +12,15 @@ import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
+import org.ligi.axt.AXT;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -190,11 +193,20 @@ public class MainActivity extends ActionBarActivity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(path.toString());
         try {
-            final String[] fileNames = path.list();
-            final ArrayAdapter<String> scriptsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fileNames) {
+            final File[] files = path.listFiles();
+
+            final ArrayAdapter<File> scriptsAdapter = new ArrayAdapter<File>(this, android.R.layout.simple_list_item_1, files) {
+
                 @Override
-                public String getItem(int position) {
-                    return super.getItem(position).replace(".aj","");
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    final TextView view = (TextView) super.getView(position, convertView, parent);
+                    final File item = getItem(position);
+                    if(item.isDirectory()) {
+                        view.setText(AXT.at(item.toString().split("/")).last()+"/");
+                    } else {
+                        view.setText(item.getName().replace(".aj",""));
+                    }
+                    return view;
                 }
             };
             builder.setAdapter(scriptsAdapter, new DialogInterface.OnClickListener() {
@@ -202,7 +214,7 @@ public class MainActivity extends ActionBarActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     try {
 
-                        final File file = new File(path, fileNames[which]);
+                        final File file = files[which];
 
                         if (file.isDirectory()) {
                             showLoadDialogForPath(file);
