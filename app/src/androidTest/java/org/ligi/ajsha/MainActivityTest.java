@@ -9,14 +9,12 @@ import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
-import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.hasSibling;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
-
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withChild;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.endsWith;
+import static org.hamcrest.text.StringEndsWith.endsWith;
 
 public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
     public MainActivityTest() {
@@ -25,7 +23,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testInputIsThere() {
         Spoon.screenshot(getActivity(), "main");
-
         onView(withId(R.id.codeInput)).check(matches(isDisplayed()));
     }
 
@@ -97,12 +94,14 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         Spoon.screenshot(activity, "load_calc");
     }
 
-    /** steps **/
+    /**
+     * steps *
+     */
     private MainActivity loadEvalCode(String code) {
         final MainActivity activity = getActivity();
 
         onView(withId(R.id.action_load)).perform(click());
-
+        onView(withText("examples")).perform(click());
         onView(withText("calculation")).check(matches(isDisplayed())); // kind of a wait
         Spoon.screenshot(activity, "load");
 

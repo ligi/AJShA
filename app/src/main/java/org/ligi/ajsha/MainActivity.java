@@ -12,15 +12,15 @@ import android.text.method.LinkMovementMethod;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.apache.commons.io.IOUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -72,10 +72,10 @@ public class MainActivity extends ActionBarActivity {
             streamedOutString = "";
             streamedOutTV.setText(streamedOutString);
 
-            final long startTime=System.currentTimeMillis();
+            final long startTime = System.currentTimeMillis();
             final Object evaledObject = interpreter.eval(getImportString() + codeEditText.getText().toString());
-            final long execTime=System.currentTimeMillis()-startTime;
-            timeTV.setText(""+execTime+"ms");
+            final long execTime = System.currentTimeMillis() - startTime;
+            timeTV.setText("" + execTime + "ms");
             exceptionOut.setText("");
             if (evaledObject == null) {
                 objClassInfo.setText("VOID");
@@ -119,6 +119,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (!new File(App.getScriptDir()+"/examples", "help.aj").exists()) {
+            new CopyAssetsAsyncTask(this).execute();
+            return;
+        }
 
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
@@ -130,7 +134,6 @@ public class MainActivity extends ActionBarActivity {
             interpreter.set("codeEditText", codeEditText);
             interpreter.set("container", linearLayout);
             interpreter.set("buttonContainer", buttonContainer);
-
 
 
         } catch (EvalError evalError) {
@@ -177,35 +180,50 @@ public class MainActivity extends ActionBarActivity {
                         .commit();
                 return true;
             case R.id.action_load:
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-                try {
-                    final String[] fileNames = getAssets().list("scripts");
-                    final ArrayAdapter<String> scriptsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fileNames);
-                    builder.setAdapter(scriptsAdapter, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            try {
-
-                                final InputStream inputStream = getAssets().open("scripts/" + fileNames[which]);
-
-                                StringWriter writer = new StringWriter();
-                                IOUtils.copy(inputStream, writer, "UTF-8");
-                                String theString = writer.toString();
-
-                                codeEditText.setText(theString);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    builder.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                showLoadDialogForPath(App.getScriptDir());
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showLoadDialogForPath(final File path) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(path.toString());
+        try {
+            final String[] fileNames = path.list();
+            final ArrayAdapter<String> scriptsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, fileNames) {
+                @Override
+                public String getItem(int position) {
+                    return super.getItem(position).replace(".aj","");
+                }
+            };
+            builder.setAdapter(scriptsAdapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+
+                        final File file = new File(path, fileNames[which]);
+
+                        if (file.isDirectory()) {
+                            showLoadDialogForPath(file);
+                        } else {
+                            final InputStream inputStream = new FileInputStream(file);
+
+                            StringWriter writer = new StringWriter();
+                            IOUtils.copy(inputStream, writer, "UTF-8");
+                            String theString = writer.toString();
+
+                            codeEditText.setText(theString);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            builder.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
