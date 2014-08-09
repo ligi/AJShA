@@ -20,7 +20,7 @@ import java.io.OutputStream;
 public abstract class BaseAsyncTask extends AsyncTask<Void, String, Void> {
 
     final Activity context;
-    private final ProgressDialog progressDialog;
+    final ProgressDialog progressDialog;
 
     public BaseAsyncTask(Activity context) {
         this.context = context;

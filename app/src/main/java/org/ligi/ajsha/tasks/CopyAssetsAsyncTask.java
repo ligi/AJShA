@@ -30,6 +30,7 @@ public class CopyAssetsAsyncTask extends BaseAsyncTask {
             }
             final String[] files = assetManager.list(path);
             for (String filename : files) {
+                progressDialog.setMessage(filename);
                 final InputStream in = assetManager.open(path+"/" +filename);
                 final File outFile = new File(toPath, filename);
                 outFile.createNewFile();
