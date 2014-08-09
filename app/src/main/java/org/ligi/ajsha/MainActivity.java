@@ -123,6 +123,15 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
 
+        initInterpreter();
+
+        final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final String showedCode = sharedPrefs.getString(CODE_KEY, getString(R.string.hello_world_code));
+        codeEditText.setText(showedCode);
+
+    }
+
+    private void initInterpreter() {
         interpreter = new Interpreter();
 
         try {
@@ -130,7 +139,6 @@ public class MainActivity extends ActionBarActivity {
             interpreter.set("codeEditText", codeEditText);
             interpreter.set("container", linearLayout);
             interpreter.set("buttonContainer", buttonContainer);
-
 
         } catch (EvalError evalError) {
             evalError.printStackTrace();
@@ -146,18 +154,6 @@ public class MainActivity extends ActionBarActivity {
 
         interpreter.setOut(new PrintStream(streamedOutStream));
         interpreter.setErr(new PrintStream(streamedOutStream));
-
-        final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final String showedCode = sharedPrefs.getString(CODE_KEY, getString(R.string.hello_world_code));
-        codeEditText.setText(showedCode);
-
-        codeEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                return false;
-
-            }
-        });
     }
 
     @Override
