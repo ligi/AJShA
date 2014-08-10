@@ -2,12 +2,9 @@ package org.ligi.ajsha;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,35 +23,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.StringWriter;
 
 import bsh.ClassIdentifier;
 import bsh.EvalError;
-import bsh.Interpreter;
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseInterpretingActivity {
 
-    private Interpreter interpreter;
-
-    @InjectView(R.id.exception_out)
-    TextView exceptionOut;
-
-    @InjectView(R.id.obj_classinfo)
-    TextView objClassInfo;
-
-    @InjectView(R.id.time)
-    TextView timeTV;
-
-    @InjectView(R.id.out_stream)
-    TextView streamedOutTV;
-
-    @InjectView(R.id.obj_tostring)
-    TextView toStringTV;
 
     @InjectView(R.id.codeInput)
     EditText codeEditText;
@@ -62,47 +39,34 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.buttonContainer)
     LinearLayout buttonContainer;
 
-    @InjectView(R.id.linearLayout)
-    LinearLayout linearLayout;
-
-    private String streamedOutString;
-
     @OnClick(R.id.execCodeButton)
     void execCodeonClick() {
-        try {
-            streamedOutString = "";
-            streamedOutTV.setText(streamedOutString);
+        execCode(codeEditText.getText().toString());
+    }
 
-            final long startTime = System.currentTimeMillis();
-            final Object evaledObject = interpreter.eval(codeEditText.getText().toString());
-            final long execTime = System.currentTimeMillis() - startTime;
-            timeTV.setText("" + execTime + "ms");
-            exceptionOut.setText("");
-            if (evaledObject == null) {
-                objClassInfo.setText("VOID");
-                toStringTV.setText("");
-            } else {
+    @Override
+    protected void onPostEcecute(Object evaledObject) {
+        super.onPostEcecute(evaledObject);
 
-                final Class evalClass;
-                if (evaledObject instanceof ClassIdentifier) {
-                    evalClass = ((ClassIdentifier) evaledObject).getTargetClass();
-                } else {
-                    evalClass = evaledObject.getClass();
-                }
-
-                if (evalClass.getCanonicalName().startsWith("android") || evalClass.getCanonicalName().startsWith("java")) {
-                    final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.getCanonicalName() + "</a>");
-                    objClassInfo.setText(html);
-                } else {
-                    objClassInfo.setText(evalClass.getCanonicalName());
-                }
-
-                toStringTV.setText(evaledObject.toString());
-            }
-        } catch (EvalError evalError) {
-            exceptionOut.setText("" + evalError);
-            evalError.printStackTrace();
+        final Class evalClass;
+        if (evaledObject instanceof ClassIdentifier) {
+            evalClass = ((ClassIdentifier) evaledObject).getTargetClass();
+        } else {
+            evalClass = evaledObject.getClass();
         }
+
+        if (evalClass.getCanonicalName().startsWith("android") || evalClass.getCanonicalName().startsWith("java")) {
+            final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.getCanonicalName() + "</a>");
+            objClassInfo.setText(html);
+        } else {
+            objClassInfo.setText(evalClass.getCanonicalName());
+        }
+
+    }
+
+    @Override
+    int getLayoutRes() {
+        return R.layout.edit;
     }
 
 
@@ -116,46 +80,17 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
 
-        if (!new File(App.getSettings().getScriptDir()+"/examples", "help.aj").exists()) {
+        if (!new File(App.getSettings().getScriptDir() + "/examples", "help.aj").exists()) {
             new CopyAssetsAsyncTask(this).execute();
             return; // we come back later with an new intent
         }
 
-        initInterpreter();
-
         new ExecutePluginsAsyncTask(this, interpreter).execute();
 
-        objClassInfo.setMovementMethod(LinkMovementMethod.getInstance());
         codeEditText.setText(App.getSettings().getRecentCode());
     }
 
-    private void initInterpreter() {
-        interpreter = new Interpreter();
-
-        try {
-            interpreter.set("ctx", this);
-            interpreter.set("codeEditText", codeEditText);
-            interpreter.set("container", linearLayout);
-            interpreter.set("buttonContainer", buttonContainer);
-
-        } catch (EvalError evalError) {
-            evalError.printStackTrace();
-        }
-
-        OutputStream streamedOutStream = new OutputStream() {
-            @Override
-            public void write(int oneByte) throws IOException {
-                streamedOutString += (char) oneByte;
-                streamedOutTV.setText(MainActivity.this.streamedOutString);
-            }
-        };
-
-        interpreter.setOut(new PrintStream(streamedOutStream));
-        interpreter.setErr(new PrintStream(streamedOutStream));
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -246,4 +181,15 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void initInterpreter() {
+        super.initInterpreter();
+        try {
+            interpreter.set("codeEditText", codeEditText);
+            interpreter.set("buttonContainer", buttonContainer);
+        } catch (EvalError evalError) {
+            evalError.printStackTrace();
+        }
+
+    }
 }
