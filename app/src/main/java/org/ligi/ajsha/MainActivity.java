@@ -17,6 +17,7 @@ import android.widget.TextView;
 import org.apache.commons.io.IOUtils;
 import org.ligi.ajsha.tasks.CopyAssetsAsyncTask;
 import org.ligi.ajsha.tasks.ExecutePluginsAsyncTask;
+import org.ligi.ajsha.tasks.LoadCodeFromIntentTask;
 import org.ligi.axt.AXT;
 
 import java.io.File;

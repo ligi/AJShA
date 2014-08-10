@@ -1,13 +1,9 @@
 package org.ligi.ajsha;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import org.ligi.axt.AXT;
+import org.ligi.ajsha.tasks.LoadCodeFromIntentTask;
 import org.ligi.tracedroid.logging.Log;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class RunActivity extends BaseInterpretingActivity {
 
@@ -19,29 +15,15 @@ public class RunActivity extends BaseInterpretingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new LoadAsyncTask().execute();
-    }
-
-    class LoadAsyncTask extends AsyncTask<Void,Void,String> {
-
-        @Override
-        protected String doInBackground(Void... params) {
-            try {
-                final InputStream inputStream = InputStreamProvider.fromUri(RunActivity.this, getIntent().getData());
-                return AXT.at(inputStream).readToString();
-            } catch (IOException e) {
-                e.printStackTrace();
+        new LoadCodeFromIntentTask(this) {
+            @Override
+            protected void onPostExecute(String s) {
+                if (s!=null) {
+                    execCode(s);
+                }
+                super.onPostExecute(s);
             }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            if (s!=null) {
-                execCode(s);
-            }
-            super.onPostExecute(s);
-        }
+        }.execute();
     }
 
     @Override
