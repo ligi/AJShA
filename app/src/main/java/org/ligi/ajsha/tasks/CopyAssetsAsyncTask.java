@@ -2,11 +2,10 @@ package org.ligi.ajsha.tasks;
 
 import android.app.Activity;
 import android.content.res.AssetManager;
-import android.os.AsyncTask;
 import android.util.Log;
 
 import org.ligi.ajsha.App;
-import org.ligi.ajsha.MainActivity;
+import org.ligi.ajsha.EditActivity;
 import org.ligi.axt.AXT;
 
 import java.io.File;
@@ -64,7 +63,7 @@ public class CopyAssetsAsyncTask extends BaseAsyncTask {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        AXT.at(context).startCommonIntent().activityFromClass(MainActivity.class);
+        AXT.at(context).startCommonIntent().activityFromClass(EditActivity.class);
         super.onPostExecute(aVoid);
     }
 }

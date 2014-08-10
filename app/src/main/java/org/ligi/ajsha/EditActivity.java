@@ -31,7 +31,7 @@ import bsh.EvalError;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseInterpretingActivity {
+public class EditActivity extends BaseInterpretingActivity {
 
 
     @InjectView(R.id.codeInput)

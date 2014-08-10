@@ -1,7 +1,5 @@
 package org.ligi.ajsha;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.google.android.apps.common.testing.ui.espresso.action.ClearTextAction;
@@ -18,9 +16,9 @@ import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMat
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.text.StringEndsWith.endsWith;
 
-public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity> {
-    public MainActivityTest() {
-        super(MainActivity.class);
+public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActivity> {
+    public EditActivityTest() {
+        super(EditActivity.class);
     }
 
     public void testInputIsThere() {
@@ -30,7 +28,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testOnePlusOneIsTwo() {
 
-        final MainActivity activity = uEvalCode("1+1");
+        final EditActivity activity = uEvalCode("1+1");
 
         onView(withId(R.id.obj_tostring)).check(matches(withText("2")));
 
@@ -39,7 +37,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testAndroidIsResolved() {
 
-        final MainActivity activity = uEvalCode("import android.os.*;Build");
+        final EditActivity activity = uEvalCode("import android.os.*;Build");
 
         Spoon.screenshot(activity, "eval_build");
 
@@ -51,7 +49,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testExceptionsAreCaredOf() {
 
-        final MainActivity activity = uEvalCode("1/0");
+        final EditActivity activity = uEvalCode("1/0");
 
         onView(withId(R.id.exception_out)).check(matches(withText(containsString("Exception"))));
 
@@ -61,7 +59,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testContextIsThere() {
 
-        final MainActivity activity = uEvalCode("ctx");
+        final EditActivity activity = uEvalCode("ctx");
 
         onView(withId(R.id.obj_classinfo)).check(matches(withText(endsWith("Activity"))));
 
@@ -70,7 +68,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testContainerWorks() {
 
-        final MainActivity activity = loadEvalCode("views");
+        final EditActivity activity = loadEvalCode("views");
 
         onView(withId(R.id.linearLayout)).check(matches(withChild(withText(containsString("check")))));
 
@@ -79,7 +77,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testDialogWorks() {
 
-        final MainActivity activity = loadEvalCode("dialog");
+        final EditActivity activity = loadEvalCode("dialog");
 
         onView(withText(containsString("test"))).check(matches(isDisplayed()));
 
@@ -89,7 +87,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     public void testThatLoadCalcWorks() {
 
-        final MainActivity activity = loadEvalCode("calculation");
+        final EditActivity activity = loadEvalCode("calculation");
 
         onView(withId(R.id.obj_tostring)).check(matches(withText(endsWith("202"))));
 
@@ -99,8 +97,8 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     /**
      * steps *
      */
-    private MainActivity loadEvalCode(String code) {
-        final MainActivity activity = getActivity();
+    private EditActivity loadEvalCode(String code) {
+        final EditActivity activity = getActivity();
 
         onView(withId(R.id.action_load)).perform(click());
         onView(withText("examples/")).perform(click());
@@ -114,9 +112,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         return activity;
     }
 
-    private MainActivity uEvalCode(String code) {
+    private EditActivity uEvalCode(String code) {
 
-        final MainActivity activity = getActivity();
+        final EditActivity activity = getActivity();
 
         onView(withId(R.id.codeInput)).perform(new ClearTextAction());
         onView(withId(R.id.codeInput)).perform(typeText(code));

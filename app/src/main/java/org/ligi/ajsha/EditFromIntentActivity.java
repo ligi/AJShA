@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import org.ligi.ajsha.tasks.LoadCodeFromIntentTask;
 
-public class EditFromIntentActivity extends MainActivity {
+public class EditFromIntentActivity extends EditActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
