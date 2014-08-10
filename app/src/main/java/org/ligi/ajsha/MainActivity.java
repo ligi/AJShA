@@ -37,7 +37,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-
 public class MainActivity extends ActionBarActivity {
 
     private Interpreter interpreter;
@@ -91,9 +90,12 @@ public class MainActivity extends ActionBarActivity {
                     evalClass = evaledObject.getClass();
                 }
 
-                final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.toString() + "</a>");
-                objClassInfo.setText(html);
-                objClassInfo.setMovementMethod(LinkMovementMethod.getInstance());
+                if (evalClass.getCanonicalName().startsWith("android") || evalClass.getCanonicalName().startsWith("java")) {
+                    final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.getCanonicalName() + "</a>");
+                    objClassInfo.setText(html);
+                } else {
+                    objClassInfo.setText(evalClass.getCanonicalName());
+                }
 
                 toStringTV.setText(evaledObject.toString());
             }
@@ -126,6 +128,7 @@ public class MainActivity extends ActionBarActivity {
 
         new ExecutePluginsAsyncTask(this, interpreter).execute();
 
+        objClassInfo.setMovementMethod(LinkMovementMethod.getInstance());
         codeEditText.setText(App.getSettings().getRecentCode());
     }
 
