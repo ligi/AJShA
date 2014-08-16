@@ -1,10 +1,21 @@
 package org.ligi.ajsha;
 
-import android.app.Application;
 import android.test.ApplicationTestCase;
 
-public class ApplicationTest extends ApplicationTestCase<Application> {
+import static org.fest.assertions.api.Assertions.assertThat;
+
+public class ApplicationTest extends ApplicationTestCase<App> {
     public ApplicationTest() {
-        super(Application.class);
+        super(App.class);
     }
+
+
+    public void testThatDirIsThere() {
+        getApplication();
+
+        final boolean isDirectory = App.getSettings().getScriptDir().isDirectory();
+
+        assertThat(isDirectory).isTrue();
+    }
+
 }

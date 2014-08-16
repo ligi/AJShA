@@ -2,7 +2,6 @@ package org.ligi.ajsha;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.google.android.apps.common.testing.ui.espresso.action.ClearTextAction;
 import com.squareup.spoon.Spoon;
 
 import org.boundbox.BoundBox;
@@ -10,15 +9,17 @@ import org.boundbox.BoundBox;
 import java.io.File;
 
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
-import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
 import static com.google.android.apps.common.testing.ui.espresso.assertion.ViewAssertions.matches;
+import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.assertThat;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withChild;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withId;
 import static com.google.android.apps.common.testing.ui.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.text.StringEndsWith.endsWith;
+import static org.ligi.ajsha.steps.EditSteps.inputAndEvaluateCode;
+import static org.ligi.ajsha.steps.EditSteps.loadAndEvaluateCode;
+import static org.ligi.ajsha.steps.EditSteps.saveFile;
 
 public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActivity> {
     public EditActivityTest() {
@@ -32,8 +33,9 @@ public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActiv
     protected void setUp() throws Exception {
         super.setUp();
 
-        boundBoxOfSettings=new BoundBoxOfSettings(App.getSettings());
-        boundBoxOfSettings.boundBox_setAjshaPath(new File(getActivity().getCacheDir(),"tests"));
+        boundBoxOfSettings = new BoundBoxOfSettings(App.getSettings());
+        boundBoxOfSettings.boundBox_setAjshaPath(new File(getActivity().getCacheDir(), "testing"));
+
     }
 
     public void testInputIsThere() {
@@ -43,100 +45,82 @@ public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActiv
 
     public void testOnePlusOneIsTwo() {
 
-        final EditActivity activity = uEvalCode("1+1");
+        inputAndEvaluateCode("1+1");
 
         onView(withId(R.id.obj_tostring)).check(matches(withText("2")));
 
-        Spoon.screenshot(activity, "one_plus_one");
+        Spoon.screenshot(getActivity(), "one_plus_one");
     }
 
     public void testAndroidIsResolved() {
 
-        final EditActivity activity = uEvalCode("import android.os.*;Build");
+        inputAndEvaluateCode("import android.os.*;Build");
 
-        Spoon.screenshot(activity, "eval_build");
+        Spoon.screenshot(getActivity(), "eval_build");
 
         onView(withId(R.id.obj_tostring)).check(matches(withText(endsWith("android.os.Build"))));
         onView(withId(R.id.obj_classinfo)).check(matches(withText(endsWith("android.os.Build"))));
-
 
     }
 
     public void testExceptionsAreCaredOf() {
 
-        final EditActivity activity = uEvalCode("1/0");
+        inputAndEvaluateCode("1/0");
 
         onView(withId(R.id.exception_out)).check(matches(withText(containsString("Exception"))));
 
-        Spoon.screenshot(activity, "exception");
+        Spoon.screenshot(getActivity(), "exception");
     }
 
 
     public void testContextIsThere() {
 
-        final EditActivity activity = uEvalCode("ctx");
+        inputAndEvaluateCode("ctx");
 
         onView(withId(R.id.obj_classinfo)).check(matches(withText(endsWith("Activity"))));
 
-        Spoon.screenshot(activity, "ctx");
+        Spoon.screenshot(getActivity(), "ctx");
     }
 
     public void testContainerWorks() {
 
-        final EditActivity activity = loadEvalCode("views");
+        loadAndEvaluateCode("examples/","views");
 
         onView(withId(R.id.linearLayout)).check(matches(withChild(withText(containsString("check")))));
 
-        Spoon.screenshot(activity, "checkbox");
+        Spoon.screenshot(getActivity(), "checkbox");
     }
 
     public void testDialogWorks() {
 
-        final EditActivity activity = loadEvalCode("dialog");
+        loadAndEvaluateCode("examples/","dialog");
 
         onView(withText(containsString("test"))).check(matches(isDisplayed()));
 
-        Spoon.screenshot(activity, "dialog");
+        Spoon.screenshot(getActivity(), "dialog");
     }
 
 
     public void testThatLoadCalcWorks() {
 
-        final EditActivity activity = loadEvalCode("calculation");
+        loadAndEvaluateCode("examples/","calculation");
 
         onView(withId(R.id.obj_tostring)).check(matches(withText(endsWith("202"))));
 
-        Spoon.screenshot(activity, "load_calc");
+        Spoon.screenshot(getActivity(), "load_calc");
     }
 
-    /**
-     * steps *
-     */
-    private EditActivity loadEvalCode(String code) {
-        final EditActivity activity = getActivity();
+    public void testSaveWorks() {
+        final String INPUT = "test\nfoobar";
+        final String FNAME = "foo_fname2";
 
-        onView(withId(R.id.action_load)).perform(click());
-        onView(withText("examples/")).perform(click());
-        onView(withText("calculation")).check(matches(isDisplayed())); // kind of a wait
-        Spoon.screenshot(activity, "load");
+        inputAndEvaluateCode(INPUT);
 
-        onView(withText(code)).perform(click());
+        saveFile(FNAME);
+        inputAndEvaluateCode("bar");
 
-        onView(withId(R.id.execCodeButton)).perform(click());
+        loadAndEvaluateCode(null, FNAME);
 
-        return activity;
+        onView(withId(R.id.codeInput)).check(matches(withText(INPUT)));
     }
-
-    private EditActivity uEvalCode(String code) {
-
-        final EditActivity activity = getActivity();
-
-        onView(withId(R.id.codeInput)).perform(new ClearTextAction());
-        onView(withId(R.id.codeInput)).perform(typeText(code));
-
-        onView(withId(R.id.execCodeButton)).perform(click());
-
-        return activity;
-    }
-
 }

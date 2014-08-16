@@ -110,20 +110,7 @@ public class EditActivity extends BaseInterpretingActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                final EditText fileNameET = new EditText(this);
-                fileNameET.setText(App.getSettings().getRecentFileName());
-                new AlertDialog.Builder(this)
-                        .setView(fileNameET)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                final File outFile = new File(App.getSettings().getScriptDir(), fileNameET.getText().toString());
-                                AXT.at(outFile).writeString(codeEditText.getText().toString() + ".aj");
-                                App.getSettings().setRecentFileName(fileNameET.getText().toString());
-                            }
-                        })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
+                showSaveDialog();
 
                 return true;
             case R.id.action_load:
@@ -131,6 +118,24 @@ public class EditActivity extends BaseInterpretingActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showSaveDialog() {
+        final EditText fileNameET = new EditText(this);
+        fileNameET.setText(App.getSettings().getRecentFileName());
+        new AlertDialog.Builder(this)
+                .setView(fileNameET)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final String fileName = fileNameET.getText().toString() + ".aj";
+                        final File outFile = new File(App.getSettings().getScriptDir(), fileName);
+                        AXT.at(outFile).writeString(codeEditText.getText().toString());
+                        App.getSettings().setRecentFileName(fileNameET.getText().toString());
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     private void showLoadDialogForPath(final File path) {
