@@ -5,6 +5,10 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.google.android.apps.common.testing.ui.espresso.action.ClearTextAction;
 import com.squareup.spoon.Spoon;
 
+import org.boundbox.BoundBox;
+
+import java.io.File;
+
 import static com.google.android.apps.common.testing.ui.espresso.Espresso.onView;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.click;
 import static com.google.android.apps.common.testing.ui.espresso.action.ViewActions.typeText;
@@ -19,6 +23,17 @@ import static org.hamcrest.text.StringEndsWith.endsWith;
 public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActivity> {
     public EditActivityTest() {
         super(EditActivity.class);
+    }
+
+    @BoundBox(boundClass = Settings.class, maxSuperClass = Settings.class)
+    private BoundBoxOfSettings boundBoxOfSettings;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        boundBoxOfSettings=new BoundBoxOfSettings(App.getSettings());
+        boundBoxOfSettings.boundBox_setAjshaPath(new File(getActivity().getCacheDir(),"tests"));
     }
 
     public void testInputIsThere() {

@@ -95,16 +95,19 @@ dependencies {
 
     withAnalyticsCompile play_services
 
+    androidTestCompile 'org.boundbox:boundbox-library:1.2.0'
     androidTestCompile 'com.squareup.spoon:spoon-client:1.1.1'
     androidTestCompile 'com.squareup:fest-android:1.0.7'
     androidTestCompile 'org.mockito:mockito-core:1.9.5'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.0'
 
+    provided 'com.jakewharton.espresso:espresso:1.1-r3'
     androidTestCompile('com.jakewharton.espresso:espresso:1.1-r3') {
         exclude group: 'com.android.support'
         exclude group: 'com.google.guava'
     }
 
+    provided 'com.jakewharton.espresso:espresso-support-v4:1.1-r3'
     androidTestCompile('com.jakewharton.espresso:espresso-support-v4:1.1-r3') {
         exclude group: 'com.android.support'
         exclude group: 'com.google.guava'

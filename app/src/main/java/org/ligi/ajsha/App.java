@@ -4,16 +4,16 @@ import android.app.Application;
 
 public class App extends Application {
 
-    private static App instance;
+    private static Settings settings;
 
     public static Settings getSettings() {
-        return new Settings(instance);
+        return settings;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
+        settings=new Settings(this);
         Tracker.init(this);
     }
 }

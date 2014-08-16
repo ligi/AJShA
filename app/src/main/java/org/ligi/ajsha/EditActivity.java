@@ -14,17 +14,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.apache.commons.io.IOUtils;
 import org.ligi.ajsha.tasks.CopyAssetsAsyncTask;
 import org.ligi.ajsha.tasks.ExecutePluginsAsyncTask;
-import org.ligi.ajsha.tasks.LoadCodeFromIntentTask;
 import org.ligi.axt.AXT;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringWriter;
 
 import bsh.ClassIdentifier;
 import bsh.EvalError;
@@ -46,22 +41,27 @@ public class EditActivity extends BaseInterpretingActivity {
     }
 
     @Override
-    protected void onPostEcecute(Object evaledObject) {
-        super.onPostEcecute(evaledObject);
+    protected void onPostExecute(Object evaledObject) {
+        super.onPostExecute(evaledObject);
 
         final Class evalClass;
+
         if (evaledObject instanceof ClassIdentifier) {
             evalClass = ((ClassIdentifier) evaledObject).getTargetClass();
         } else {
             evalClass = evaledObject.getClass();
         }
 
+        final String htmlString;
+
         if (evalClass.getCanonicalName().startsWith("android") || evalClass.getCanonicalName().startsWith("java")) {
-            final Spanned html = Html.fromHtml("<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.getCanonicalName() + "</a>");
-            objClassInfo.setText(html);
+            htmlString="<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.getCanonicalName() + "</a>";
         } else {
-            objClassInfo.setText(evalClass.getCanonicalName());
+            htmlString=evalClass.getCanonicalName();
         }
+
+        final Spanned html = Html.fromHtml(htmlString);
+        objClassInfo.setText(html);
 
     }
 
@@ -163,12 +163,7 @@ public class EditActivity extends BaseInterpretingActivity {
                         if (file.isDirectory()) {
                             showLoadDialogForPath(file);
                         } else {
-                            final InputStream inputStream = new FileInputStream(file);
-                            App.getSettings().setRecentFileName(file.toString().replace(App.getSettings().getScriptDir().toString() + "/", ""));
-                            StringWriter writer = new StringWriter();
-                            IOUtils.copy(inputStream, writer, "UTF-8");
-                            String theString = writer.toString();
-
+                            final String theString=AXT.at(file).readToString();
                             codeEditText.setText(theString);
                         }
                     } catch (IOException e) {

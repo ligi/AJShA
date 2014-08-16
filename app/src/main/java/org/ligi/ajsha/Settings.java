@@ -14,6 +14,7 @@ public class Settings {
 
     final Context ctx;
     final SharedPreferences sharedPrefs;
+    private File ajshaPath;
 
     public Settings(Context ctx) {
         this.ctx = ctx;
@@ -37,7 +38,12 @@ public class Settings {
     }
 
     public File getScriptDir() {
-        File ajshaPath = tryPath(new File(Environment.getExternalStorageDirectory(), "ajsha"));
+        if (ajshaPath != null) {
+            return ajshaPath;
+        }
+
+        ajshaPath = tryPath(new File(Environment.getExternalStorageDirectory(), "ajsha"));
+
         if (ajshaPath != null) {
             return ajshaPath;
         }

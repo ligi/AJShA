@@ -27,8 +27,8 @@ public class RunActivity extends BaseInterpretingActivity {
     }
 
     @Override
-    protected void onPostEcecute(Object evaledObject) {
-        super.onPostEcecute(evaledObject);
+    protected void onPostExecute(Object evaledObject) {
+        super.onPostExecute(evaledObject);
         Log.w("obj result from eval " + evaledObject);
     }
 }

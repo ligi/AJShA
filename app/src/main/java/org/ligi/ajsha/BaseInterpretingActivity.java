@@ -3,7 +3,6 @@ package org.ligi.ajsha;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,7 +53,7 @@ public abstract class BaseInterpretingActivity extends ActionBarActivity {
                 objClassInfo.setText("VOID");
                 toStringTV.setText("");
             } else {
-                onPostEcecute(evaledObject);
+                onPostExecute(evaledObject);
             }
         } catch (EvalError evalError) {
             exceptionOut.setText("" + evalError);
@@ -62,9 +61,8 @@ public abstract class BaseInterpretingActivity extends ActionBarActivity {
         }
     }
 
-    protected void onPostEcecute(Object evaledObject) {
+    protected void onPostExecute(Object evaledObject) {
         toStringTV.setText(evaledObject.toString());
-
     }
     abstract int getLayoutRes();
 
