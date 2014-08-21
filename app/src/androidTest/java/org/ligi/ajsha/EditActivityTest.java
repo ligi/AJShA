@@ -1,6 +1,8 @@
 package org.ligi.ajsha;
 
+import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.Toast;
 
 import com.squareup.spoon.Spoon;
 
@@ -29,6 +31,8 @@ public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActiv
     @BoundBox(boundClass = Settings.class, maxSuperClass = Settings.class)
     private BoundBoxOfSettings boundBoxOfSettings;
 
+    private static final String EXAMPLE_EXTRA_INTENT_CODE = "example extra intent code";
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -36,6 +40,18 @@ public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActiv
         boundBoxOfSettings = new BoundBoxOfSettings(App.getSettings());
         boundBoxOfSettings.boundBox_setAjshaPath(new File(getActivity().getCacheDir(), "testing"));
 
+    }
+
+    @Override
+    public EditActivity getActivity() {
+
+        Intent intent = new Intent();
+        intent.setClassName("org.ligi.ajsha","org.ligi.ajsha.EditActivity");
+        intent.putExtra(EditActivity.EXTRA_CODE, EXAMPLE_EXTRA_INTENT_CODE);
+
+        setActivityIntent(intent);
+
+        return super.getActivity();
     }
 
     public void testInputIsThere() {
@@ -122,5 +138,14 @@ public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActiv
         loadAndEvaluateCode(null, FNAME);
 
         onView(withId(R.id.codeInput)).check(matches(withText(INPUT)));
+    }
+
+    public void testStartWithIntent(){
+
+        getActivity();
+
+        onView(withId(R.id.codeInput)).check(matches(withText(EXAMPLE_EXTRA_INTENT_CODE)));
+
+        Spoon.screenshot(getActivity(), "intent_code");
     }
 }
