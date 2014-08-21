@@ -2,7 +2,6 @@ package org.ligi.ajsha;
 
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Toast;
 
 import com.squareup.spoon.Spoon;
 
