@@ -2,6 +2,7 @@ package org.ligi.ajsha;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -34,6 +35,8 @@ public class EditActivity extends BaseInterpretingActivity {
 
     @InjectView(R.id.buttonContainer)
     LinearLayout buttonContainer;
+
+    public static final String EXTRA_CODE = "org.ligi.ajsha.EditActivity.EXTRA_CODE";
 
     @OnClick(R.id.execCodeButton)
     void execCodeonClick() {
@@ -89,6 +92,11 @@ public class EditActivity extends BaseInterpretingActivity {
 
         new ExecutePluginsAsyncTask(this, interpreter).execute();
 
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra(EXTRA_CODE)) {
+            codeEditText.setText(intent.getStringExtra(EXTRA_CODE));
+            return;
+        }
         codeEditText.setText(App.getSettings().getRecentCode());
     }
 
