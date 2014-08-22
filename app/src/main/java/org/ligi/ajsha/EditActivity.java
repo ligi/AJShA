@@ -92,7 +92,7 @@ public class EditActivity extends BaseInterpretingActivity {
 
         new ExecutePluginsAsyncTask(this, interpreter).execute();
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_CODE)) {
             codeEditText.setText(intent.getStringExtra(EXTRA_CODE));
             return;
