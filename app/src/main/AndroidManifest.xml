@@ -118,6 +118,407 @@
                     android:pathPattern=".*\\.aj"
                     android:scheme="content" />
             </intent-filter>
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="http"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="https"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="file"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content"
+                    android:host="*"
+                    android:pathPattern=".*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\..*\\.aj" />
+            </intent-filter>
+
         </activity>
     </application>
 
