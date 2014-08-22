@@ -28,8 +28,8 @@ android {
         applicationId "org.ligi.ajsha"
         minSdkVersion 9
         targetSdkVersion 20
-        versionCode 5
-        versionName "0.5"
+        versionCode 6
+        versionName "0.6"
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
 
     }
@@ -39,7 +39,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
                 def file = variant.outputFile
-                variant.outputFile = new File(file.parent, file.name.replace(".apk", "-" + defaultConfig.versionName + ".apk"))
+                final def replace = file.name.replace(".apk", "-" + defaultConfig.versionName + ".apk")
+                variant.outputFile = new File(file.parent, replace)
             }
 
         }
