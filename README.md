@@ -8,6 +8,8 @@ AJShA
 =====
 Android Java Shell App
 
+![promo](https://raw.githubusercontent.com/ligi/AJShA/master/app/promo/511x299.png)
+
 With this App you can quickly eval some Android Java code - scripting style for fast iterations, experiments and API exploration.
 Sometimes you just want to evaluate some Android-Code without compiling a project - this is your App for this job.
 
