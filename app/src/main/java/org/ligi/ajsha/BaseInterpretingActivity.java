@@ -102,11 +102,11 @@ public abstract class BaseInterpretingActivity extends ActionBarActivity {
             evalError.printStackTrace();
         }
 
-        OutputStream streamedOutStream = new OutputStream() {
+        final OutputStream streamedOutStream = new OutputStream() {
             @Override
             public void write(int oneByte) throws IOException {
                 streamedOutString += (char) oneByte;
-                streamedOutTV.setText(BaseInterpretingActivity.this.streamedOutString);
+                streamedOutTV.setText(streamedOutString);
             }
         };
 
