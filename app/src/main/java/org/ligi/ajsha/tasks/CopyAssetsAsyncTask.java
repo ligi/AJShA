@@ -5,7 +5,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import org.ligi.ajsha.App;
-import org.ligi.ajsha.EditActivity;
+import org.ligi.ajsha.ui.EditActivity;
 import org.ligi.axt.AXT;
 
 import java.io.File;

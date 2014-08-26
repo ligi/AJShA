@@ -2,6 +2,8 @@ package org.ligi.ajsha;
 
 import android.content.Context;
 
+import org.ligi.ajsha.glue.TrackerInterface;
+
 import java.lang.IllegalArgumentException;
 
 public class Tracker {

@@ -6,6 +6,8 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.squareup.spoon.Spoon;
 
 import org.boundbox.BoundBox;
+import org.ligi.ajsha.model.Settings;
+import org.ligi.ajsha.ui.EditActivity;
 
 import java.io.File;
 
@@ -27,25 +29,27 @@ public class EditActivityTest extends ActivityInstrumentationTestCase2<EditActiv
         super(EditActivity.class);
     }
 
-    @BoundBox(boundClass = Settings.class, maxSuperClass = Settings.class)
+    /*@BoundBox(boundClass = Settings.class, maxSuperClass = Settings.class)
     private BoundBoxOfSettings boundBoxOfSettings;
+    */
 
     private static final String EXAMPLE_EXTRA_INTENT_CODE = "example extra intent code";
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-
+        App.getSettings().setAjshaPath(new File(getActivity().getCacheDir(), "testing"));
+        /*
         boundBoxOfSettings = new BoundBoxOfSettings(App.getSettings());
         boundBoxOfSettings.boundBox_setAjshaPath(new File(getActivity().getCacheDir(), "testing"));
-
+        */
     }
 
     @Override
     public EditActivity getActivity() {
 
         Intent intent = new Intent();
-        intent.setClassName("org.ligi.ajsha","org.ligi.ajsha.EditActivity");
+        intent.setClassName("org.ligi.ajsha","org.ligi.ajsha.ui.EditActivity");
         intent.putExtra(EditActivity.EXTRA_CODE, EXAMPLE_EXTRA_INTENT_CODE);
 
         setActivityIntent(intent);

@@ -1,7 +1,8 @@
-package org.ligi.ajsha;
+package org.ligi.ajsha.ui;
 
 import android.os.Bundle;
 
+import org.ligi.ajsha.R;
 import org.ligi.ajsha.tasks.LoadCodeFromIntentTask;
 import org.ligi.tracedroid.logging.Log;
 

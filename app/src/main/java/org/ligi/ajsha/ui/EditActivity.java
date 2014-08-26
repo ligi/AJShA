@@ -1,4 +1,4 @@
-package org.ligi.ajsha;
+package org.ligi.ajsha.ui;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.ligi.ajsha.App;
+import org.ligi.ajsha.R;
 import org.ligi.ajsha.tasks.CopyAssetsAsyncTask;
 import org.ligi.ajsha.tasks.ExecutePluginsAsyncTask;
 import org.ligi.axt.AXT;
@@ -36,7 +38,7 @@ public class EditActivity extends BaseInterpretingActivity {
     @InjectView(R.id.buttonContainer)
     LinearLayout buttonContainer;
 
-    public static final String EXTRA_CODE = "org.ligi.ajsha.EditActivity.EXTRA_CODE";
+    public static final String EXTRA_CODE = "org.ligi.ajsha.ui.EditActivity.EXTRA_CODE";
 
     @OnClick(R.id.execCodeButton)
     void execCodeonClick() {

@@ -2,6 +2,8 @@ package org.ligi.ajsha;
 
 import android.content.Context;
 
+import org.ligi.ajsha.glue.TrackerInterface;
+
 public class Tracker {
 
     private static AnalyticsTracker instance;

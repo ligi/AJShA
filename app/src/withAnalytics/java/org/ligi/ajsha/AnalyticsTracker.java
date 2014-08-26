@@ -8,6 +8,8 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.StandardExceptionParser;
 import com.google.android.gms.analytics.Tracker;
 
+import org.ligi.ajsha.glue.TrackerInterface;
+
 import java.util.Map;
 
 public class AnalyticsTracker implements TrackerInterface {

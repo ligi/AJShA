@@ -1,4 +1,4 @@
-package org.ligi.ajsha;
+package org.ligi.ajsha.glue;
 
 import android.support.v4.app.FragmentActivity;
 

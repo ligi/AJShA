@@ -3,8 +3,7 @@ package org.ligi.ajsha.tasks;
 import android.app.Activity;
 import android.os.AsyncTask;
 
-import org.ligi.ajsha.InputStreamProvider;
-import org.ligi.axt.AXT;
+import org.ligi.ajsha.util.InputStreamProvider;
 
 import java.io.BufferedReader;
 import java.io.IOException;

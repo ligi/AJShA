@@ -1,9 +1,11 @@
-package org.ligi.ajsha;
+package org.ligi.ajsha.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+
+import org.ligi.ajsha.R;
 
 import java.io.File;
 
@@ -68,5 +70,13 @@ public class Settings {
 
     public void setRecentCode(String code) {
         sharedPrefs.edit().putString(CODE_KEY,code).commit();
+    }
+
+    /**
+     * TODO REMOVE me - just here for tests - boundbox made too many problems - but do not want stuff
+     * just for tests in my project
+     */
+    public void setAjshaPath(File path) {
+        ajshaPath=path;
     }
 }

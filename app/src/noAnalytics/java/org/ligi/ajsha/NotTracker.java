@@ -2,6 +2,7 @@ package org.ligi.ajsha;
 
 import android.support.v4.app.FragmentActivity;
 
+import org.ligi.ajsha.glue.TrackerInterface;
 import org.ligi.tracedroid.logging.Log;
 
 public class NotTracker implements TrackerInterface {

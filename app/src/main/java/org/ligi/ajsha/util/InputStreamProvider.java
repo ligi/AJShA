@@ -1,4 +1,4 @@
-package org.ligi.ajsha;
+package org.ligi.ajsha.util;
 
 import android.content.Context;
 import android.net.Uri;
@@ -6,6 +6,8 @@ import android.net.Uri;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import org.ligi.ajsha.Tracker;
 
 import java.io.BufferedInputStream;
 import java.io.FileNotFoundException;

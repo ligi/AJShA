@@ -1,10 +1,13 @@
-package org.ligi.ajsha;
+package org.ligi.ajsha.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.ligi.ajsha.R;
+import org.ligi.ajsha.Tracker;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -15,7 +18,7 @@ import bsh.Interpreter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public abstract class BaseInterpretingActivity extends ActionBarActivity {
+public abstract class BaseInterpretingActivity extends BaseActivity {
 
     protected Interpreter interpreter;
 
@@ -38,6 +41,49 @@ public abstract class BaseInterpretingActivity extends ActionBarActivity {
     LinearLayout linearLayout;
 
     private String streamedOutString;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(getLayoutRes());
+        ButterKnife.inject(this);
+
+        initInterpreter();
+
+        objClassInfo.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    protected void initInterpreter() {
+        interpreter = new Interpreter();
+
+        streamSetup();
+        passObjects();
+
+    }
+
+    private void passObjects() {
+        try {
+            interpreter.set("ctx", this);
+            interpreter.set("container", linearLayout);
+
+        } catch (EvalError evalError) {
+            evalError.printStackTrace();
+        }
+    }
+
+    private void streamSetup() {
+        final OutputStream streamedOutStream = new OutputStream() {
+            @Override
+            public void write(int oneByte) throws IOException {
+                streamedOutString += (char) oneByte;
+                streamedOutTV.setText(streamedOutString);
+            }
+        };
+
+        interpreter.setOut(new PrintStream(streamedOutStream));
+        interpreter.setErr(new PrintStream(streamedOutStream));
+    }
 
     protected void execCode(String code) {
         try {
@@ -66,52 +112,5 @@ public abstract class BaseInterpretingActivity extends ActionBarActivity {
     }
     abstract int getLayoutRes();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(getLayoutRes());
-        ButterKnife.inject(this);
-
-        initInterpreter();
-
-        objClassInfo.setMovementMethod(LinkMovementMethod.getInstance());
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Tracker.get().activityStart(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Tracker.get().activityStop(this);
-    }
-
-    protected void initInterpreter() {
-        interpreter = new Interpreter();
-
-        try {
-            interpreter.set("ctx", this);
-            interpreter.set("container", linearLayout);
-
-        } catch (EvalError evalError) {
-            evalError.printStackTrace();
-        }
-
-        final OutputStream streamedOutStream = new OutputStream() {
-            @Override
-            public void write(int oneByte) throws IOException {
-                streamedOutString += (char) oneByte;
-                streamedOutTV.setText(streamedOutString);
-            }
-        };
-
-        interpreter.setOut(new PrintStream(streamedOutStream));
-        interpreter.setErr(new PrintStream(streamedOutStream));
-    }
 
 }

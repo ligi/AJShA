@@ -2,6 +2,8 @@ package org.ligi.ajsha;
 
 import android.app.Application;
 
+import org.ligi.ajsha.model.Settings;
+
 public class App extends Application {
 
     private static Settings settings;
