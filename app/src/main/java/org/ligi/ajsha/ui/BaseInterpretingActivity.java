@@ -1,13 +1,11 @@
 package org.ligi.ajsha.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.ligi.ajsha.R;
-import org.ligi.ajsha.Tracker;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -110,6 +108,7 @@ public abstract class BaseInterpretingActivity extends BaseActivity {
     protected void onPostExecute(Object evaledObject) {
         toStringTV.setText(evaledObject.toString());
     }
+
     abstract int getLayoutRes();
 
 
