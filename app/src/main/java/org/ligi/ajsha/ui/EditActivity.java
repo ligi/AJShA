@@ -3,6 +3,7 @@ package org.ligi.ajsha.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -60,9 +61,9 @@ public class EditActivity extends BaseInterpretingActivity {
         final String htmlString;
 
         if (evalClass.getCanonicalName().startsWith("android") || evalClass.getCanonicalName().startsWith("java")) {
-            htmlString="<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.getCanonicalName() + "</a>";
+            htmlString = "<a href='" + getLinkForClass(evalClass) + "'>" + evalClass.getCanonicalName() + "</a>";
         } else {
-            htmlString=evalClass.getCanonicalName();
+            htmlString = evalClass.getCanonicalName();
         }
 
         final Spanned html = Html.fromHtml(htmlString);
@@ -177,19 +178,30 @@ public class EditActivity extends BaseInterpretingActivity {
 
                         if (file.isDirectory()) {
                             showLoadDialogForPath(file);
+                        } else if (file.toString().endsWith(".apk")) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(Uri.parse("file://"+file.getAbsolutePath()), "application/vnd.android.package-archive");
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                         } else {
-                            final String theString=AXT.at(file).readToString();
+                            final String theString = AXT.at(file).readToString();
                             codeEditText.setText(theString);
                         }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             });
             builder.show();
-        } catch (Exception e) {
+        } catch (
+                Exception e
+                )
+
+        {
             e.printStackTrace();
         }
+
     }
 
     @Override

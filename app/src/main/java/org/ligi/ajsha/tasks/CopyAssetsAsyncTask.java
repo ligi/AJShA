@@ -58,6 +58,7 @@ public class CopyAssetsAsyncTask extends BaseAsyncTask {
         App.getSettings().getScriptDir().mkdirs();
         copyAssets("examples");
         copyAssets("plugins");
+        copyAssets("permission_apps");
         return null;
     }
 

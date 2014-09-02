@@ -28,8 +28,8 @@ android {
         applicationId "org.ligi.ajsha"
         minSdkVersion 9
         targetSdkVersion 20
-        versionCode 7
-        versionName "0.7"
+        versionCode 9
+        versionName "0.9"
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
 
     }
