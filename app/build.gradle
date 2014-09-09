@@ -67,6 +67,13 @@ android {
         }
     }
 
+    // needed for assertJ
+    packagingOptions {
+      exclude 'asm-license.txt'
+      exclude 'LICENSE'
+      exclude 'NOTICE'
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
@@ -95,7 +102,7 @@ dependencies {
 
     androidTestCompile 'org.boundbox:boundbox-library:1.2.0'
     androidTestCompile 'com.squareup.spoon:spoon-client:1.1.1'
-    androidTestCompile 'com.squareup:fest-android:1.0.8'
+    androidTestCompile 'com.squareup.assertj:assertj-android:1.0.0'
     androidTestCompile 'org.mockito:mockito-core:1.9.5'
     androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
 
