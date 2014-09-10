@@ -5,8 +5,6 @@ import android.test.ActivityInstrumentationTestCase2;
 
 import com.squareup.spoon.Spoon;
 
-import org.boundbox.BoundBox;
-import org.ligi.ajsha.model.Settings;
 import org.ligi.ajsha.ui.EditActivity;
 
 import java.io.File;

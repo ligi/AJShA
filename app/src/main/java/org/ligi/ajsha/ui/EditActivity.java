@@ -88,12 +88,12 @@ public class EditActivity extends BaseInterpretingActivity {
         super.onCreate(savedInstanceState);
 
 
-        if (!new File(App.getSettings().getScriptDir() + "/examples", "help.aj").exists()) {
-            new CopyAssetsAsyncTask(this).execute();
-            return; // we come back later with an new intent
-        }
-
-        new ExecutePluginsAsyncTask(this, interpreter).execute();
+        new CopyAssetsAsyncTask(this, new Runnable() {
+            @Override
+            public void run() {
+                new ExecutePluginsAsyncTask(EditActivity.this, interpreter).execute();
+            }
+        }).execute();
 
         final Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EXTRA_CODE)) {
