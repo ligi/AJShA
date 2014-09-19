@@ -18,7 +18,7 @@ import java.net.URL;
 
 public class InputStreamProvider {
 
-    public final static InputStream fromUri(final Context ctx,final Uri uri) {
+    public static InputStream fromUri(final Context ctx,final Uri uri) {
         switch (uri.getScheme()) {
             case "content":
 
@@ -35,7 +35,7 @@ public class InputStreamProvider {
                 return InputStreamProvider.getDefaultHttpInputStreamForUri(uri);
         }
     }
-    public final static InputStream fromOKHttp(final Uri uri) {
+    public static InputStream fromOKHttp(final Uri uri) {
         try {
             final OkHttpClient client = new OkHttpClient();
             final URL url = new URL(uri.toString());
@@ -54,7 +54,7 @@ public class InputStreamProvider {
         return null;
     }
 
-    public final static InputStream fromContent(final Context ctx, final Uri uri) {
+    public static InputStream fromContent(final Context ctx, final Uri uri) {
         try {
             return ctx.getContentResolver().openInputStream(uri);
         } catch (FileNotFoundException e) {
@@ -65,7 +65,7 @@ public class InputStreamProvider {
     }
 
 
-    public final static InputStream getDefaultHttpInputStreamForUri(final Uri uri) {
+    public static InputStream getDefaultHttpInputStreamForUri(final Uri uri) {
         try {
             return new BufferedInputStream(new URL(uri.toString()).openStream(), 4096);
         } catch (IOException e) {
