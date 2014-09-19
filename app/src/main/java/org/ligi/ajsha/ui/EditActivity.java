@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import org.ligi.ajsha.App;
 import org.ligi.ajsha.R;
+import org.ligi.ajsha.api.EditAPI;
+import org.ligi.ajsha.api.EditAPIImpl;
 import org.ligi.ajsha.tasks.CopyAssetsAsyncTask;
 import org.ligi.ajsha.tasks.ExecutePluginsAsyncTask;
 import org.ligi.axt.AXT;
@@ -32,6 +34,7 @@ import butterknife.OnClick;
 
 public class EditActivity extends BaseInterpretingActivity {
 
+    private EditAPI editApi;
 
     @InjectView(R.id.codeInput)
     EditText codeEditText;
@@ -45,6 +48,7 @@ public class EditActivity extends BaseInterpretingActivity {
     void execCodeonClick() {
         execCode(codeEditText.getText().toString());
     }
+
 
     @Override
     protected void onPostExecute(Object evaledObject) {
@@ -86,7 +90,6 @@ public class EditActivity extends BaseInterpretingActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         new CopyAssetsAsyncTask(this, new Runnable() {
             @Override
@@ -180,7 +183,7 @@ public class EditActivity extends BaseInterpretingActivity {
                             showLoadDialogForPath(file);
                         } else if (file.toString().endsWith(".apk")) {
                             Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setDataAndType(Uri.parse("file://"+file.getAbsolutePath()), "application/vnd.android.package-archive");
+                            intent.setDataAndType(Uri.parse("file://" + file.getAbsolutePath()), "application/vnd.android.package-archive");
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         } else {
@@ -210,6 +213,9 @@ public class EditActivity extends BaseInterpretingActivity {
         try {
             interpreter.set("codeEditText", codeEditText);
             interpreter.set("buttonContainer", buttonContainer);
+
+            editApi = new EditAPIImpl(this, buttonContainer);
+            interpreter.set("editAPI", editApi);
         } catch (EvalError evalError) {
             evalError.printStackTrace();
         }

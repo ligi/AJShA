@@ -1,11 +1,5 @@
-import android.view.*;
-import android.widget.*;
-
-Button clearBtn = new Button(ctx);
-clearBtn.setText("clear");
-clearBtn.setOnClickListener(new View.OnClickListener() {
-  public void onClick(View v) {
+editAPI.addEditorButton("clear", new Runnable() {
+ public void run() {
    codeEditText.setText("");
-  }
+ }
 });
-buttonContainer.addView(clearBtn);
