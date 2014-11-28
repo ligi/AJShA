@@ -27,14 +27,13 @@ android {
         applicationId "org.ligi.ajsha"
         minSdkVersion 9
         targetSdkVersion 21
-        versionCode 10
-        versionName "0.10"
+        versionCode 11
+        versionName "0.11"
         testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
 
     }
     buildTypes {
         release {
-            //runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
