@@ -5,7 +5,10 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.0.0'
         classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.12.0'
-        classpath 'com.stanfy.spoon:spoon-gradle-plugin:0.14.1'
+        classpath('com.stanfy.spoon:spoon-gradle-plugin:0.14.1') {
+            // https://github.com/stanfy/spoon-gradle-plugin/issues/33
+            exclude module: 'guava'
+        }
         classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.1.5'
     }
 }
@@ -103,7 +106,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'org.ligi:AXT:0.31'
     compile 'org.apache.commons:commons-io:1.3.2'
-    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.android.support:appcompat-v7:21.0.3'
 
     compile 'com.squareup.okhttp:okhttp:2.1.0'
     compile 'org.ligi:tracedroid:1.4'
