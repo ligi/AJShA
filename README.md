@@ -23,7 +23,7 @@ The time is measured to execute the code and there are links to the javadoc.
 Status
 ------
 
-[![Dependency Status](https://www.versioneye.com/user/projects/53ff2591f4df15a9a7000077/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53ff2591f4df15a9a7000077)
+[![Build Status](https://snap-ci.com/ligi/AJShA/branch/master/build_image)](https://snap-ci.com/ligi/AJShA/branch/master)
 
-[![Build Status](https://travis-ci.org/ligi/AJShA.svg?branch=master)](https://travis-ci.org/ligi/AJShA)
+[![Dependency Status](https://www.versioneye.com/user/projects/53ff2591f4df15a9a7000077/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53ff2591f4df15a9a7000077)
 
