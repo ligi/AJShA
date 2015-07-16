@@ -51,19 +51,19 @@ android {
     productFlavors {
 
         withAnalytics {
-            flavorDimension "analytics"
+            dimension "analytics"
         }
 
         noAnalytics {
-            flavorDimension "analytics"
+            dimension "analytics"
         }
 
         forPlay {
-            flavorDimension "distribution"
+            dimension "distribution"
         }
 
         forFDroid {
-            flavorDimension "distribution"
+            dimension "distribution"
         }
 
     }
