@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
 import org.ligi.ajsha.App;
 import org.ligi.ajsha.R;
 import org.ligi.ajsha.api.EditAPI;
@@ -29,17 +30,16 @@ import java.io.IOException;
 
 import bsh.ClassIdentifier;
 import bsh.EvalError;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class EditActivity extends BaseInterpretingActivity {
 
     private EditAPI editApi;
 
-    @InjectView(R.id.codeInput)
+    @Bind(R.id.codeInput)
     EditText codeEditText;
 
-    @InjectView(R.id.buttonContainer)
+    @Bind(R.id.buttonContainer)
     LinearLayout buttonContainer;
 
     public static final String EXTRA_CODE = "org.ligi.ajsha.ui.EditActivity.EXTRA_CODE";

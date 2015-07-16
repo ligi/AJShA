@@ -97,7 +97,7 @@ android {
 dependencies {
     compile 'com.google.guava:guava:18.0'
     compile 'org.beanshell:bsh:2.0b5'
-    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'org.ligi:AXT:0.33'
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'com.android.support:appcompat-v7:22.2.0'

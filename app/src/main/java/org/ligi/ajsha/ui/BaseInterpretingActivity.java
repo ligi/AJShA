@@ -5,6 +5,7 @@ import android.text.method.LinkMovementMethod;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import butterknife.Bind;
 import org.ligi.ajsha.R;
 
 import java.io.IOException;
@@ -14,28 +15,27 @@ import java.io.PrintStream;
 import bsh.EvalError;
 import bsh.Interpreter;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public abstract class BaseInterpretingActivity extends BaseActivity {
 
     protected Interpreter interpreter;
 
-    @InjectView(R.id.exception_out)
+    @Bind(R.id.exception_out)
     TextView exceptionOut;
 
-    @InjectView(R.id.obj_classinfo)
+    @Bind(R.id.obj_classinfo)
     TextView objClassInfo;
 
-    @InjectView(R.id.time)
+    @Bind(R.id.time)
     TextView timeTV;
 
-    @InjectView(R.id.out_stream)
+    @Bind(R.id.out_stream)
     TextView streamedOutTV;
 
-    @InjectView(R.id.obj_tostring)
+    @Bind(R.id.obj_tostring)
     TextView toStringTV;
 
-    @InjectView(R.id.linearLayout)
+    @Bind(R.id.linearLayout)
     LinearLayout linearLayout;
 
     private String streamedOutString;
@@ -45,7 +45,7 @@ public abstract class BaseInterpretingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(getLayoutRes());
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         initInterpreter();
 
