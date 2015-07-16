@@ -32,25 +32,12 @@ android {
         versionCode 12
         versionName "0.12"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "AJSHA-$versionName"
     }
 
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def file = output.outputFile
-                    def replace = file.name.replace(".apk", "-" + defaultConfig.versionName + ".apk")
-                    output.outputFile = new File(file.parent, replace)
-                }
-            }
-
-        }
-    }
-
-    signingConfigs {
-        release {
-            storeFile file("/home/ligi/.android/ajsha.keystore")
         }
     }
 
