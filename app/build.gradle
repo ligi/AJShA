@@ -77,7 +77,7 @@ android {
 
     lintOptions {
         ignore "InvalidPackage"
-	ignore "AppIndexingError"
+        ignore "AppIndexingError"
     }
 
 }
@@ -100,7 +100,7 @@ dependencies {
     withAnalyticsCompile play_services
 
     androidTestCompile 'com.squareup.spoon:spoon-client:1.2.0'
-    androidTestCompile 'com.squareup.assertj:assertj-android:1.1.0'
+    androidTestCompile 'com.squareup.assertj:assertj-android:1.1.1'
 
     // have to wait with update till this is solved: https://code.google.com/p/dexmaker/issues/detail?id=40
     androidTestCompile 'org.mockito:mockito-core:1.9.5'
