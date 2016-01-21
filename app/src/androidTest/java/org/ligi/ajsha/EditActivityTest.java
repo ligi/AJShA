@@ -16,7 +16,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withChild;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.text.StringEndsWith.endsWith;
+import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.ligi.ajsha.steps.EditSteps.inputAndEvaluateCode;
 import static org.ligi.ajsha.steps.EditSteps.loadAndEvaluateCode;
 import static org.ligi.ajsha.steps.EditSteps.saveFile;
