@@ -90,7 +90,7 @@ dependencies {
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'com.android.support:appcompat-v7:23.1.1'
 
-    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okhttp3:okhttp:3.0.1'
     compile 'org.ligi:tracedroid:1.4'
 
     forPlayCompile 'fr.nicolaspomepuy:discreetapprate:2.0.4'

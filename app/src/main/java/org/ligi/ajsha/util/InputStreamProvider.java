@@ -3,10 +3,6 @@ package org.ligi.ajsha.util;
 import android.content.Context;
 import android.net.Uri;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import org.ligi.ajsha.Tracker;
 
 import java.io.BufferedInputStream;
@@ -16,9 +12,13 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class InputStreamProvider {
 
-    public static InputStream fromUri(final Context ctx,final Uri uri) {
+    public static InputStream fromUri(final Context ctx, final Uri uri) {
         switch (uri.getScheme()) {
             case "content":
 
@@ -35,6 +35,7 @@ public class InputStreamProvider {
                 return InputStreamProvider.getDefaultHttpInputStreamForUri(uri);
         }
     }
+
     public static InputStream fromOKHttp(final Uri uri) {
         try {
             final OkHttpClient client = new OkHttpClient();
