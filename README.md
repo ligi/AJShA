@@ -1,5 +1,5 @@
-[![Android app on Google Play](https://developer.android.com/images/brand/en_app_rgb_wo_60.png)](https://play.google.com/store/apps/details?id=org.ligi.ajsha)
-[![Android app on FDroid](https://f-droid.org/wiki/images/c/c4/F-Droid-button_available-on.png)](https://f-droid.org/repository/browse/?fdid=org.ligi.ajsha)
+[![Android app on Google Play](http://ligi.de/img/play_badge.png)](https://play.google.com/store/apps/details?id=org.ligi.ajsha)
+[![Android app on FDroid](http://ligi.de/img/fdroid_badge.png)](https://f-droid.org/repository/browse/?fdid=org.ligi.ajsha)
 
 
 AJShA
@@ -24,6 +24,4 @@ Status
 ------
 
 [![Build Status](https://snap-ci.com/ligi/AJShA/branch/master/build_image)](https://snap-ci.com/ligi/AJShA/branch/master)
-
-[![Dependency Status](https://www.versioneye.com/user/projects/53ff2591f4df15a9a7000077/badge.svg?style=flat)](https://www.versioneye.com/user/projects/53ff2591f4df15a9a7000077)
 
